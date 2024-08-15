@@ -18,6 +18,8 @@ public class UsersEntity {
     private long id;
     private String username;
     private String password;
+
+    @Enumerated(EnumType.STRING)
     private UserType userType;
 
 }

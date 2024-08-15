@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,4 +29,14 @@ public class EventsEntitiy {
     private LocalDateTime endDateTime;
     private String location;
     private int capacity;
+
+    @OneToMany(mappedBy = "event")
+    private List<RegistrationEntity> registrations;
+
+    @OneToMany(mappedBy = "event")
+    private List<InvitationsEntity> invitations;
+
+    @OneToMany(mappedBy = "event")
+    private List<AttendancesEntity> attendances;
+
 }

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,5 +18,17 @@ public class InvitationsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    //FALTA ADICIONAR ATRIBUTOS VERIFICAR NA CONVERSA
+
+    @ManyToOne
+    @JoinColumn(name = "event_id",nullable = false)
+    private EventsEntitiy event;
+
+    @ManyToOne
+    @JoinColumn(name = "participant_id", nullable = false)
+    private ParticipantsEntity participant;
+
+    private LocalDateTime inviteDate;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }
