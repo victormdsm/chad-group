@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -29,6 +30,9 @@ public class EventsEntitiy {
     private LocalDateTime endDateTime;
     private String location;
     private int capacity;
+
+    @ManyToMany(mappedBy = "events")
+    private List<ParticipantsEntity> participants = new ArrayList<>();
 
     @OneToMany(mappedBy = "event")
     private List<RegistrationEntity> registrations;

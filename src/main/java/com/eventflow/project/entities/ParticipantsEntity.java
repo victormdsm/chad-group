@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -24,6 +25,14 @@ public class ParticipantsEntity {
     @Email
     private String email;
     private String phone;
+
+    @ManyToMany
+    @JoinTable(
+            name = "participants_events",
+            joinColumns = @JoinColumn(name = "participant_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id")
+    )
+    private List<EventsEntitiy> events = new ArrayList<>();
 
     @OneToMany(mappedBy = "participant")
     private List<RegistrationEntity> registrations;
