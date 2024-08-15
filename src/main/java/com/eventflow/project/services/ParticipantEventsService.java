@@ -1,4 +1,4 @@
 package com.eventflow.project.services;
 
-public class AttendancesService {
+public class ParticipantEventsService {
 }

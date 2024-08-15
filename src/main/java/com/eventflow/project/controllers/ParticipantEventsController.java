@@ -1,4 +1,4 @@
 package com.eventflow.project.controllers;
 
-public class RegistrationsController {
+public class ParticipantEventsController {
 }
