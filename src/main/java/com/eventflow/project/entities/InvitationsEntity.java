@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class InvitationsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @NotNull @Email @Column(name = "email", nullable = false)
     private String email;
