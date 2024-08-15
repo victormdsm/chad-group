@@ -13,6 +13,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "Attendances")
-public class AttendancesEntities {
+public class AttendancesEntity {
     //ADICIONAR ATRIBUTOS
 }

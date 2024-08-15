@@ -11,13 +11,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "participants")
-public class ParticipantsEntities {
+@Table(name = "Registrations")
+public class RegistrationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String name;
-    private String email;
-    private String phone;
+    //FALTA ADICIONAR ALGUNS ATRIBUTOS VERIFICAR NA HORA Q FOR FAZER OS RELACIONAMENTOS
 
 }
