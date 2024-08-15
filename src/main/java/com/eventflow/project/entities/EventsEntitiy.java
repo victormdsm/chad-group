@@ -17,30 +17,34 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "events")
+@Table(name = "events_tb")
 public class EventsEntitiy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotNull(message = "Esse campo não pode ser nulo")
-    @NotBlank(message = "Esse campo não pode ser vazio")
+    @NotNull @NotBlank @Column(name = "title", nullable = false)
     private String title;
+    @Column(name = "event_description")
     private String description;
+    @NotNull @Column(name = "start_date_time", nullable = false)
     private LocalDateTime startDateTime;
+    @NotNull @Column(name = "end_date_time", nullable = false)
     private LocalDateTime endDateTime;
+    @NotNull @NotBlank @Column(name = "location", nullable = false)
     private String location;
+    @NotNull @Column(name = "capacity",nullable = false)
     private int capacity;
 
-    @ManyToMany(mappedBy = "events")
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UsersEntity user;
+
+    @ManyToMany( mappedBy = "events")
     private List<ParticipantsEntity> participants = new ArrayList<>();
 
     @OneToMany(mappedBy = "event")
-    private List<RegistrationEntity> registrations;
+    private List<ParticipantsEventsEntity> participantsEvents;
 
     @OneToMany(mappedBy = "event")
     private List<InvitationsEntity> invitations;
-
-    @OneToMany(mappedBy = "event")
-    private List<AttendancesEntity> attendances;
-
 }

@@ -2,6 +2,7 @@ package com.eventflow.project.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,31 +17,29 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "participants")
+@Table(name = "participants_tb")
 public class ParticipantsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotNull @NotBlank @Column(name = "participant_name", nullable = false)
     private String name;
-    @Email
+    @NotNull @NotBlank @Email @Column(name = "email", nullable = false)
     private String email;
+    @NotNull @NotBlank @Column(name = "phone", nullable = false)
     private String phone;
 
     @ManyToMany
     @JoinTable(
-            name = "participants_events",
+            name = "participants_events_tb",
             joinColumns = @JoinColumn(name = "participant_id"),
             inverseJoinColumns = @JoinColumn(name = "event_id")
     )
     private List<EventsEntitiy> events = new ArrayList<>();
 
     @OneToMany(mappedBy = "participant")
-    private List<RegistrationEntity> registrations;
-
-    @OneToMany(mappedBy = "participant")
     private List<InvitationsEntity> invitations;
 
-    @OneToMany(mappedBy = "participant")
-    private List<AttendancesEntity> attendances;
+
 
 }
