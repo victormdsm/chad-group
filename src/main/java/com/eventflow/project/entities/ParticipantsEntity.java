@@ -21,11 +21,14 @@ import java.util.List;
 public class ParticipantsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
     @NotNull @NotBlank @Column(name = "participant_name", nullable = false)
     private String name;
+
     @NotNull @NotBlank @Email @Column(name = "email", nullable = false)
     private String email;
+
     @NotNull @NotBlank @Column(name = "phone", nullable = false)
     private String phone;
 
