@@ -23,22 +23,22 @@ public class EventsEntitiy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull @NotBlank @Column(name = "title", nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "event_description")
     private String description;
 
-    @NotNull @Column(name = "start_date_time", nullable = false)
+    @Column(name = "start_date_time", nullable = false)
     private LocalDateTime startDateTime;
 
-    @NotNull @Column(name = "end_date_time", nullable = false)
+    @Column(name = "end_date_time", nullable = false)
     private LocalDateTime endDateTime;
 
-    @NotNull @NotBlank @Column(name = "location", nullable = false)
+    @Column(name = "location", nullable = false)
     private String location;
 
-    @NotNull @Column(name = "capacity",nullable = false)
+    @Column(name = "capacity",nullable = false)
     private int capacity;
 
     @ManyToOne

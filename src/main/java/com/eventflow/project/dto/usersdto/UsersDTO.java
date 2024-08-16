@@ -1,4 +1,4 @@
-package com.eventflow.project.dto;
+package com.eventflow.project.dto.usersdto;
 
 import com.eventflow.project.entities.UserType;
 import jakarta.validation.constraints.Email;
