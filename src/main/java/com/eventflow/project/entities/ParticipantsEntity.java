@@ -23,13 +23,13 @@ public class ParticipantsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull @NotBlank @Column(name = "participant_name", nullable = false)
+    @Column(name = "participant_name", nullable = false)
     private String name;
 
-    @NotNull @NotBlank @Email @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @NotNull @NotBlank @Column(name = "phone", nullable = false)
+    @Column(name = "phone", nullable = false)
     private String phone;
 
     @ManyToMany

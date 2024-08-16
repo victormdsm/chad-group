@@ -20,10 +20,10 @@ public class ParticipantsEventsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull @Column(name = "registration_date_time",nullable = false)
+    @Column(name = "registration_date_time",nullable = false)
     private LocalDateTime registrationDateTime;
 
-    @NotNull @Column(name = "participant_status") @Enumerated(EnumType.STRING)
+    @Column(name = "participant_status") @Enumerated(EnumType.STRING)
     private Status participantStatus;
 
     @ManyToOne

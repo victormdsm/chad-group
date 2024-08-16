@@ -21,10 +21,10 @@ public class InvitationsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull @Email @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @NotNull @Column(name = "invite_date_time", nullable = false)
+    @Column(name = "invite_date_time", nullable = false)
     private LocalDateTime invitationDateTime;
 
     @ManyToOne

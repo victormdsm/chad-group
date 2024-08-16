@@ -1,5 +1,6 @@
 package com.eventflow.project.entities;
 
+import com.eventflow.project.dto.usersdto.UserRegistrationDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -20,19 +21,27 @@ public class UsersEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull @NotBlank @Column(name = "username", unique = true,nullable = false)
+    @Column(name = "username", unique = true,nullable = false)
     private String username;
 
-    @NotNull @NotBlank @Column(name = "user_password", nullable = false)
+    @Column(name = "user_password", nullable = false)
     private String password;
 
-    @NotNull @NotBlank @Email @Column(name = "email", unique = true, nullable = false)
+    @Email @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @NotNull @NotBlank @Column(name = "phone", unique = true, nullable = false)
+    @Column(name = "phone", unique = true, nullable = false)
     private String phone;
 
-    @NotNull @Enumerated(EnumType.STRING) @Column(name = "user_type", nullable = false)
+    @Enumerated(EnumType.STRING) @Column(name = "user_type", nullable = false)
     private UserType userType;
+
+    public UsersEntity (UserRegistrationDTO dto){
+        this.username = dto.username();
+        this.password = dto.password();
+        this.email = dto.email();
+        this.phone = dto.phone();
+        this.userType = UserType.PARTICIPANT;
+    }
 
 }

@@ -1,4 +1,4 @@
-package com.eventflow.project.dto;
+package com.eventflow.project.dto.registrationsdto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class InvitationDTO {
+public class RegistrationDTO {
     private long id;
     private long eventId;
     private long participantId;
-    private LocalDateTime inviteDate;
-    private String status; //
+    private LocalDateTime registrationDate;
+    private String status;
 }
