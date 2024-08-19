@@ -1,5 +1,7 @@
 package com.eventflow.project.entities;
 
+import com.eventflow.project.dto.eventsdto.CreatEventDTO;
+import com.eventflow.project.dto.eventsdto.EventDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -53,4 +55,14 @@ public class EventsEntitiy {
 
     @OneToMany(mappedBy = "event")
     private List<InvitationsEntity> invitations;
+
+    public EventsEntitiy(CreatEventDTO dto, UsersEntity user) {
+        this.title = dto.title();
+        this.description = dto.description();
+        this.startDateTime = dto.dateTime();
+        this.endDateTime = dto.endDateTime();
+        this.location = dto.location();
+        this.capacity = dto.capacity();
+        this.user = user;
+    }
 }
