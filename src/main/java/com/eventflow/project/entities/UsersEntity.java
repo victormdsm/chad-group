@@ -41,7 +41,7 @@ public class UsersEntity {
         this.password = dto.password();
         this.email = dto.email();
         this.phone = dto.phone();
-        this.userType = UserType.PARTICIPANT;
+        this.userType = dto.userType();;
     }
 
 }
