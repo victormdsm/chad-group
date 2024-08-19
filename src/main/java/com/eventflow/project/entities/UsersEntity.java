@@ -1,6 +1,7 @@
 package com.eventflow.project.entities;
 
 import com.eventflow.project.dto.usersdto.UserRegistrationDTO;
+import com.eventflow.project.dto.usersdto.UserUpdateDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -43,6 +44,20 @@ public class UsersEntity {
         this.email = dto.email();
         this.phone = dto.phone();
         this.userType = dto.userType();;
+    }
+
+    public void updateFromDto(UserUpdateDTO dto) {
+        if(dto.username() != null && !dto.username().isEmpty()){
+            this.username = dto.username();
+        }
+
+        if(dto.email() != null && !dto.email().isEmpty()){
+            this.email = dto.email();
+        }
+
+        if(dto.phone() != null && !dto.phone().isEmpty()){
+            this.phone = dto.phone();
+        }
     }
 
 }

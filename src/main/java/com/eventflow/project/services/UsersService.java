@@ -7,9 +7,11 @@ import com.eventflow.project.dto.usersdto.UsersDTO;
 import com.eventflow.project.entities.UsersEntity;
 import com.eventflow.project.repositories.UsersRepository;
 import jakarta.validation.Valid;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.PublicKey;
 import java.util.List;
 
 @Service
@@ -18,20 +20,13 @@ public class UsersService {
     @Autowired
     private UsersRepository usersRepository;
 
-    public ReturnUserDataDTO save(@Valid UserRegistrationDTO userRegistrationDTO){
-       UsersEntity usersEntity = new UsersEntity(userRegistrationDTO);
-       UsersEntity entidadeSalva = this.usersRepository.save(usersEntity);
-       return new ReturnUserDataDTO(entidadeSalva);
+    public UsersEntity save(@Valid UsersEntity usersEntity){
+        return this.usersRepository.save(usersEntity);
     }
 
-    public ReturnUserDataDTO update(@Valid UserUpdateDTO userUpdateDTO){
-        UsersEntity usersEntity = usersRepository.findById(userUpdateDTO.id())
-                .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
-        usersEntity.setUsername(userUpdateDTO.username());
-        usersEntity.setEmail(userUpdateDTO.email());
-        usersEntity.setPhone(userUpdateDTO.phone());
-        UsersEntity entidadeAtualizada = usersRepository.save(usersEntity);
-        return new ReturnUserDataDTO(entidadeAtualizada);
+    public UsersEntity update(@Valid UsersEntity usersEntity){
+        this.usersRepository.save(usersEntity);
+        return usersEntity;
     }
 
 
@@ -42,16 +37,13 @@ public class UsersService {
         }
        return "Usuario Não existe";
     }
-    public UsersEntity findById(Long id) {
-        UsersEntity usersEntity = usersRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
+    public UsersEntity findById(@Valid Long id) {
+        UsersEntity usersEntity = usersRepository.findById(id).get();
         return usersEntity;
     }
 
-    public List<ReturnUserDataDTO> findAll() {
+    public List<UsersEntity> findAll() {
         List<UsersEntity> lista = usersRepository.findAll();
-        return lista.stream()
-                .map(ReturnUserDataDTO::new)
-                .toList();
+        return lista;
     }
 }

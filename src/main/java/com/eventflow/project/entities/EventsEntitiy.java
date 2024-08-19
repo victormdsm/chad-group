@@ -2,6 +2,7 @@ package com.eventflow.project.entities;
 
 import com.eventflow.project.dto.eventsdto.CreatEventDTO;
 import com.eventflow.project.dto.eventsdto.EventDTO;
+import com.eventflow.project.dto.eventsdto.UpdateEventDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -65,5 +66,15 @@ public class EventsEntitiy {
         this.location = dto.location();
         this.capacity = dto.capacity();
         this.user = user;
+    }
+
+
+    public void updateFromDto(UpdateEventDTO dto) {
+        this.title = dto.title();
+        this.description = dto.description();
+        this.startDateTime = dto.startDateTime();
+        this.endDateTime = dto.endDateTime();
+        this.location = dto.location();
+        this.capacity = dto.capacity();
     }
 }

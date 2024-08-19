@@ -23,25 +23,13 @@ public class EventsService {
     @Autowired
     private UsersRepository usersRepository;
 
-    public ReturnEventDataDTO save(@Valid CreatEventDTO creatEventDTO) {
-        UsersEntity user = usersRepository.findById(creatEventDTO.userID())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        EventsEntitiy eventsEntitiy = new EventsEntitiy(creatEventDTO, user);
-        EventsEntitiy eventoSalvo = this.eventsRepository.save(eventsEntitiy);
-        return new ReturnEventDataDTO(eventoSalvo);
+    public EventsEntitiy save(@Valid EventsEntitiy eventsEntitiy) {
+       return this.eventsRepository.save(eventsEntitiy);
     }
 
-    public ReturnEventDataDTO update(@Valid EventDTO eventDTO) {
-        EventsEntitiy existingEvent = eventsRepository.findById(eventDTO.getId())
-                .orElseThrow(() -> new RuntimeException("Event not found"));
-        existingEvent.setTitle(eventDTO.getTitle());
-        existingEvent.setDescription(eventDTO.getDescription());
-        existingEvent.setStartDateTime(eventDTO.getStartDateTime());
-        existingEvent.setEndDateTime(eventDTO.getEndDateTime());
-        existingEvent.setLocation(eventDTO.getLocation());
-        existingEvent.setCapacity(eventDTO.getCapacity());
-        EventsEntitiy updatedEvent = eventsRepository.save(existingEvent);
-        return new ReturnEventDataDTO(updatedEvent);
+    public EventsEntitiy update(@Valid EventsEntitiy eventsEntitiy) {
+       this.eventsRepository.save(eventsEntitiy);
+       return eventsEntitiy;
     }
 
     public String delete(@Valid Long id){
@@ -52,16 +40,23 @@ public class EventsService {
         return "Evento não encontrado";
     }
 
-    public ReturnEventDataDTO findById(Long id) {
-        EventsEntitiy event = eventsRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event not found"));
-        return new ReturnEventDataDTO(event);
+    public EventsEntitiy findById(Long id) {
+        EventsEntitiy event = eventsRepository.findById(id).get();
+        return event;
     }
 
-    public List<ReturnEventDataDTO> findAll() {
+    public List<EventsEntitiy> findAll() {
         List<EventsEntitiy> events = eventsRepository.findAll();
-        return events.stream()
-                .map(ReturnEventDataDTO::new) // Converte cada evento para o DTO
-                .collect(Collectors.toList());
+       return events;
+    }
+
+    public UsersEntity findUserById(Long userId) {
+
+        UsersEntity user = usersRepository.findById(userId).orElse(null);
+        if (user == null) {
+            throw new IllegalArgumentException("Usuário não encontrado para o ID: " + userId);
+        }
+
+        return user;
     }
 }
