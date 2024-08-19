@@ -1,9 +1,9 @@
 package com.eventflow.project.controllers;
 
-
 import com.eventflow.project.dto.usersdto.ReturnUserDataDTO;
 import com.eventflow.project.dto.usersdto.UserRegistrationDTO;
 import com.eventflow.project.dto.usersdto.UserUpdateDTO;
+import com.eventflow.project.entities.UsersEntity;
 import com.eventflow.project.services.UsersService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/users")
@@ -21,59 +22,63 @@ public class UsersController {
     private UsersService usersService;
 
     @PostMapping("/create")
-    public ResponseEntity<ReturnUserDataDTO> save(@Valid @RequestBody UserRegistrationDTO userRegistrationDTO){
+    public ResponseEntity<ReturnUserDataDTO> save(@RequestBody @Valid UserRegistrationDTO dto) {
         try {
-            ReturnUserDataDTO usuarioCriado = this.usersService.save(userRegistrationDTO);
-            return new ResponseEntity<>(usuarioCriado, HttpStatus.CREATED);
-        }catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @PutMapping("/update/{id}")
-    public ResponseEntity<ReturnUserDataDTO> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDTO userUpdateDTO){
-        try {
-            userUpdateDTO = new UserUpdateDTO(id, userUpdateDTO.username(), userUpdateDTO.email(), userUpdateDTO.phone());
-            ReturnUserDataDTO usuarioAtualizado = this.usersService.update(userUpdateDTO);
-            return new ResponseEntity<>(usuarioAtualizado, HttpStatus.OK);
-        } catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable long id){
-        try{
-            String msg = this.usersService.delete(id);
-            return new ResponseEntity<>(msg,HttpStatus.OK);
-        }catch (Exception e){
+            var user = new UsersEntity(dto);
+            ReturnUserDataDTO retorno = new ReturnUserDataDTO(usersService.save(user));
+            return new ResponseEntity<>(retorno, HttpStatus.CREATED);
+        } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
-    @GetMapping("/findOne/{id}")
-    public ResponseEntity<ReturnUserDataDTO> getUserById(@PathVariable Long id) {
-       try {
-           var user = usersService.findById(id);
-           ReturnUserDataDTO user2 = new ReturnUserDataDTO(user);
-           return new ResponseEntity<>(user2, HttpStatus.OK);
-       }catch (Exception e) {
-           e.printStackTrace();
-           return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
-       }
-    }
-    @GetMapping("/findAll")
-    public ResponseEntity<List<ReturnUserDataDTO>> getAllUsers() {
-        try{
-            List<ReturnUserDataDTO> users = usersService.findAll();
-            return new ResponseEntity<>(users, HttpStatus.OK);
-        }catch (Exception e){
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ReturnUserDataDTO> update(@PathVariable Long id, @RequestBody @Valid UserUpdateDTO dto) {
+        try {
+            var user = usersService.findById(id);
+            user.updateFromDto(dto);
+            ReturnUserDataDTO retorno = new ReturnUserDataDTO(usersService.update(user));
+            return new ResponseEntity<>(retorno, HttpStatus.OK);
+        } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
+    }
 
+    @GetMapping("/findbyid/{id}")
+    public ResponseEntity<ReturnUserDataDTO> findById(@PathVariable Long id) {
+        try {
+            var user = usersService.findById(id);
+            ReturnUserDataDTO retorno = new ReturnUserDataDTO(user);
+            return new ResponseEntity<>(retorno, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/findall")
+    public ResponseEntity<List<ReturnUserDataDTO>> findAll() {
+        try {
+            List<UsersEntity> users = usersService.findAll();
+            return new ResponseEntity<>(users.stream()
+                    .map(ReturnUserDataDTO::new)
+                    .collect(Collectors.toList()), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        try {
+            String message = usersService.delete(id);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 }
