@@ -47,8 +47,9 @@ public class EventsEntitiy {
     @JoinColumn(name = "user_id", nullable = false)
     private UsersEntity user;
 
-    @ManyToMany( mappedBy = "events")
-    private List<ParticipantsEntity> participants = new ArrayList<>();
+    //TODO COMENTADO PARA TESTE
+//    @ManyToMany( mappedBy = "events")
+//    private List<ParticipantsEntity> participants = new ArrayList<>();
 
     @OneToMany(mappedBy = "event")
     private List<ParticipantsEventsEntity> participantsEvents;

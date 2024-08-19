@@ -1,5 +1,8 @@
 package com.eventflow.project.entities;
 
+import com.eventflow.project.dto.participantsdto.ParticipantDTO;
+import com.eventflow.project.dto.participantsdto.ParticipantRegistrationDTO;
+import com.eventflow.project.dto.participantsdto.UpdateParticipantDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -8,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.catalina.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,16 +36,37 @@ public class ParticipantsEntity {
     @Column(name = "phone", nullable = false)
     private String phone;
 
-    @ManyToMany
-    @JoinTable(
-            name = "participants_events_tb",
-            joinColumns = @JoinColumn(name = "participant_id"),
-            inverseJoinColumns = @JoinColumn(name = "event_id")
-    )
-    private List<EventsEntitiy> events = new ArrayList<>();
-
     @OneToMany(mappedBy = "participant")
-    private List<InvitationsEntity> invitations;
+    private List<ParticipantsEventsEntity> participantsEvents;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UsersEntity users;
+
+    //TODO IMPLEMENTAR DEPOIS
+//    @OneToMany(mappedBy = "participant")
+//    private List<InvitationsEntity> invitations;
+
+    public ParticipantsEntity(ParticipantRegistrationDTO dto, UsersEntity users) {
+        this.name = dto.name();
+        this.email = dto.email();
+        this.phone = dto.phone();
+        this.users = users;
+    }
+
+    public void updateFromDto(UpdateParticipantDTO dto){
+        if(dto.nome() != null && !dto.nome().isEmpty()){
+            this.name = dto.nome();
+        }
+
+        if (dto.email() != null && !dto.email().isEmpty()) {
+            this.email = dto.email();
+        }
+
+        if(dto.phone() != null) {
+            this.phone = dto.phone();
+        }
+    }
 
 
 

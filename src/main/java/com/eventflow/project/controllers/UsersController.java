@@ -57,8 +57,9 @@ public class UsersController {
     @GetMapping("/findOne/{id}")
     public ResponseEntity<ReturnUserDataDTO> getUserById(@PathVariable Long id) {
        try {
-           ReturnUserDataDTO user = usersService.findById(id);
-           return new ResponseEntity<>(user, HttpStatus.OK);
+           var user = usersService.findById(id);
+           ReturnUserDataDTO user2 = new ReturnUserDataDTO(user);
+           return new ResponseEntity<>(user2, HttpStatus.OK);
        }catch (Exception e) {
            e.printStackTrace();
            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);

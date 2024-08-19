@@ -42,10 +42,10 @@ public class UsersService {
         }
        return "Usuario Não existe";
     }
-    public ReturnUserDataDTO findById(Long id) {
+    public UsersEntity findById(Long id) {
         UsersEntity usersEntity = usersRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
-        return new ReturnUserDataDTO(usersEntity);
+        return usersEntity;
     }
 
     public List<ReturnUserDataDTO> findAll() {

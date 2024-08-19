@@ -18,12 +18,8 @@ public class ParticipantsService {
        return this.participantsRepository.save(participantsEntity);
    }
 
-   public ParticipantsEntity update(@Valid ParticipantsEntity participantsEntity, Long id){
-       if (participantsRepository.existsById(id)){
-           participantsEntity.setId(id);
-           return participantsRepository.save(participantsEntity);
-       }
-       return null;
+   public ParticipantsEntity update(ParticipantsEntity participantsEntity){
+       return participantsRepository.save(participantsEntity);
    }
 
    public String delete(@Valid Long id){

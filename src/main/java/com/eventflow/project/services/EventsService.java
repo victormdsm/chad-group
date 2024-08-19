@@ -19,6 +19,7 @@ public class EventsService {
 
     @Autowired
     private EventsRepository eventsRepository;
+
     @Autowired
     private UsersRepository usersRepository;
 
