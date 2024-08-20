@@ -1,5 +1,6 @@
 package com.eventflow.project.entities;
 
+import com.eventflow.project.dto.invitationsdto.InvitationCreateDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -27,12 +28,13 @@ public class InvitationsEntity {
     @Column(name = "invite_date_time", nullable = false)
     private LocalDateTime invitationDateTime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id",nullable = false)
     private EventsEntitiy event;
 
-    @ManyToOne
-    @JoinColumn(name = "participant_id", nullable = false)
-    private ParticipantsEntity participant;
-
+    public InvitationsEntity(InvitationCreateDTO dto, EventsEntitiy event){
+        this.email = dto.email();
+        this.invitationDateTime = LocalDateTime.now();
+        this.event = event;
+    }
 }
