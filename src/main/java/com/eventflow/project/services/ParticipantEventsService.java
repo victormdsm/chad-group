@@ -19,13 +19,8 @@ public class ParticipantEventsService {
         return this.participantEventsRepository.save(participantsEventsEntity);
     }
 
-    public ParticipantsEventsEntity update(@Valid ParticipantsEventsEntity participantsEventsEntity, Long id){
-        if (participantEventsRepository.existsById(id)){
-            participantsEventsEntity.setId(id);
-            participantEventsRepository.save(participantsEventsEntity);
-            return participantsEventsEntity;
-        }
-        return null;
+    public ParticipantsEventsEntity update(@Valid ParticipantsEventsEntity participantsEventsEntity){
+        return participantEventsRepository.save(participantsEventsEntity);
     }
 
     public String delete(@Valid Long id){

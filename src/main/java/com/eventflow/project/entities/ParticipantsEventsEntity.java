@@ -2,6 +2,7 @@ package com.eventflow.project.entities;
 
 import com.eventflow.project.dto.eventsdto.EventDTO;
 import com.eventflow.project.dto.participantsdto.ParticipantDTO;
+import com.eventflow.project.dto.participantseventsdto.ParticipantsEventsUpdateDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -37,5 +38,8 @@ public class ParticipantsEventsEntity {
     @JoinColumn(name = "event_id", nullable = false)
     private EventsEntitiy event;
 
-
+    public void update(ParticipantsEventsUpdateDTO dto) {
+        this.id = dto.id();
+        this.participantStatus = dto.status();
+    }
 }
