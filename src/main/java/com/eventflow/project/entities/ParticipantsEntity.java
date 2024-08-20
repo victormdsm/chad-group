@@ -39,7 +39,7 @@ public class ParticipantsEntity {
     @OneToMany(mappedBy = "participant")
     private List<ParticipantsEventsEntity> participantsEvents;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UsersEntity users;
 

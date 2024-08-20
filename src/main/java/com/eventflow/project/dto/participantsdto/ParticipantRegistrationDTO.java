@@ -1,5 +1,6 @@
 package com.eventflow.project.dto.participantsdto;
 
+import com.eventflow.project.dto.usersdto.UserDto;
 import com.eventflow.project.entities.UsersEntity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -12,5 +13,5 @@ public record ParticipantRegistrationDTO(
         @Pattern(regexp = "^\\(?\\d{2}\\)?\\s?\\d{4,5}-\\d{4}$",
                 message = "Número de telefone inválido")
         String phone,
-        @NotNull Long id) {
+        @NotNull UserDto dto) {
 }

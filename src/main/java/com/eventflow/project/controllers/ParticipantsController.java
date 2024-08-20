@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.eventflow.project.mapper.ParticipantMapper.ParticipantDtoParticipantEntity;
+
 @RestController
 @RequestMapping("/api/participants")
 public class ParticipantsController {
@@ -27,10 +29,9 @@ public class ParticipantsController {
     @PostMapping("/create")
     public ResponseEntity<ReturnParticipantDataDTO> save(@RequestBody @Valid ParticipantRegistrationDTO dto){
         try {
-            var user = usersService.findById(dto.id());
-            var participant = new ParticipantsEntity(dto, user);
-            ReturnParticipantDataDTO retorno = new ReturnParticipantDataDTO(participantService.save(participant));
-            return new ResponseEntity<>(retorno, HttpStatus.CREATED);
+            var participant = ParticipantDtoParticipantEntity(dto);
+            participantService.save(participant);
+            return new ResponseEntity<>(new ReturnParticipantDataDTO(participant), HttpStatus.CREATED);
         } catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
