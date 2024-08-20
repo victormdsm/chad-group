@@ -1,19 +1,15 @@
 package com.eventflow.project.entities;
 
+import com.eventflow.project.dto.eventsdto.EventDTO;
 import com.eventflow.project.dto.participantsdto.ParticipantDTO;
 import com.eventflow.project.dto.participantsdto.ParticipantRegistrationDTO;
 import com.eventflow.project.dto.participantsdto.UpdateParticipantDTO;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.catalina.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -47,6 +43,9 @@ public class ParticipantsEntity {
 //    @OneToMany(mappedBy = "participant")
 //    private List<InvitationsEntity> invitations;
 
+    public ParticipantsEntity(Long id) {
+        this.id = id;
+    }
     public ParticipantsEntity(ParticipantRegistrationDTO dto, UsersEntity users) {
         this.name = dto.name();
         this.email = dto.email();

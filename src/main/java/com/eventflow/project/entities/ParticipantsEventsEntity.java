@@ -1,11 +1,14 @@
 package com.eventflow.project.entities;
 
+import com.eventflow.project.dto.eventsdto.EventDTO;
+import com.eventflow.project.dto.participantsdto.ParticipantDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.w3c.dom.events.Event;
 
 import java.time.LocalDateTime;
 
@@ -26,11 +29,13 @@ public class ParticipantsEventsEntity {
     @Column(name = "participant_status") @Enumerated(EnumType.STRING)
     private Status participantStatus;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "participant_id",nullable = false)
     private ParticipantsEntity participant;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id", nullable = false)
     private EventsEntitiy event;
+
+
 }
