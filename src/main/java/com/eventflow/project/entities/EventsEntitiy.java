@@ -58,6 +58,10 @@ public class EventsEntitiy {
     @OneToMany(mappedBy = "event")
     private List<InvitationsEntity> invitations;
 
+    public EventsEntitiy(Long id){
+        this.id = id;
+    }
+
     public EventsEntitiy(CreatEventDTO dto, UsersEntity user) {
         this.title = dto.title();
         this.description = dto.description();

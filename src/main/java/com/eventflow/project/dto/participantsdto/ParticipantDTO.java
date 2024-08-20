@@ -1,23 +1,17 @@
 package com.eventflow.project.dto.participantsdto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.eventflow.project.dto.usersdto.UserDto;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
-import java.util.List;
+public record ParticipantDTO(
+        @NotNull Long id,
+        String name,
+        String email,
+        String phone,
+        UserDto dto
+) {
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class ParticipantDTO {
-    private long id;
-    private String name;
-    private String email;
-    private String phone;
-    private List<Long> eventIds;
-    private List<Long> registrationIds;
-    private List<Long> invitationIds;
-    private List<Long> attendanceIds;
 }
