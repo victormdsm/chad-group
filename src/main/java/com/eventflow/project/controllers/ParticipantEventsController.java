@@ -6,10 +6,13 @@ import com.eventflow.project.dto.participantseventsdto.ParticipantsEventsUpdateD
 import com.eventflow.project.dto.participantseventsdto.ReturnParticipantEventsDTO;
 import com.eventflow.project.entities.ParticipantsEventsEntity;
 import com.eventflow.project.services.ParticipantEventsService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,36 +22,21 @@ import static com.eventflow.project.mapper.ParticipantMapper.ParticipantDtoParti
 import static com.eventflow.project.mapper.ParticipantsEventsMapper.participantsEventsDTOtoParticipantsEventsEntity;
 
 @RestController
-@RequestMapping("/api/participantevents")
+@RequestMapping("/api/participants-events")
 public class ParticipantEventsController {
 
-
     @Autowired
-    ParticipantEventsService partEvenService;
+    private ParticipantEventsService participantEventsService;
 
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody @Valid ParticipantEventRegistrationDTO dto) {
         try {
-            var participant = participantsEventsDTOtoParticipantsEventsEntity(dto);
-            partEvenService.save(participant);
-            return new ResponseEntity<>(new ReturnParticipantEventsDTO(participant), HttpStatus.CREATED);
-        } catch (Exception e){
+            long count = participantEventsService.countConfirmedParticipantsByEvent(eventId);
+            return new ResponseEntity<>(count, HttpStatus.OK);
+        } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @PutMapping("/update/{id}")
-    public ResponseEntity update(@RequestBody @Valid ParticipantsEventsUpdateDTO dto, @PathVariable Long id) {
-        try {
-            var participant = partEvenService.findById(id);
-            participant.update(dto);
-            partEvenService.update(participant);
-            return new ResponseEntity<>(new ReturnParticipantEventsDTO(participant), HttpStatus.OK);
-        } catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -84,6 +72,16 @@ public class ParticipantEventsController {
         } catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/count/confirmed/{eventId}")
+    public ResponseEntity<Long> countConfirmedParticipants(@PathVariable Long eventId) {
+        try {
+            long count = participantEventsService.countConfirmedParticipantsByEvent(eventId);
+            return new ResponseEntity<>(count, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 

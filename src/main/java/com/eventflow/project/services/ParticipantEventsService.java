@@ -1,6 +1,7 @@
 package com.eventflow.project.services;
 
 import com.eventflow.project.entities.ParticipantsEventsEntity;
+import com.eventflow.project.entities.Status;
 import com.eventflow.project.repositories.ParticipantEventsRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,9 @@ public class ParticipantEventsService {
     public List<ParticipantsEventsEntity> findAll(){
         List<ParticipantsEventsEntity> lista = this.participantEventsRepository.findAll();
         return lista;
+    }
+
+    public long countConfirmedParticipantsByEvent(Long eventId) {
+        return participantEventsRepository.countByEventIdAndStatus(eventId, Status.CONFIRMED);
     }
 }
