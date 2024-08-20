@@ -6,6 +6,7 @@ import com.eventflow.project.dto.participantseventsdto.ParticipantsEventsUpdateD
 import com.eventflow.project.dto.participantseventsdto.ReturnParticipantEventsDTO;
 import com.eventflow.project.entities.ParticipantsEventsEntity;
 import com.eventflow.project.services.ParticipantEventsService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,18 +33,19 @@ public class ParticipantEventsController {
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody @Valid ParticipantEventRegistrationDTO dto) {
         try {
-            long count = participantEventsService.countConfirmedParticipantsByEvent(eventId);
-            return new ResponseEntity<>(count, HttpStatus.OK);
-        } catch (Exception e) {
+            var participant = participantsEventsDTOtoParticipantsEventsEntity(dto);
+            participantEventsService.save(participant);
+            return new ResponseEntity<>(new ReturnParticipantEventsDTO(participant), HttpStatus.CREATED);
+        } catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/findbyid/{id}")
     public ResponseEntity findById(@PathVariable Long id) {
         try {
-            var participant = partEvenService.findById(id);
+            var participant = participantEventsService.findById(id);
             return new ResponseEntity<>(new ReturnParticipantEventsDTO(participant), HttpStatus.OK);
         } catch (Exception e){
             e.printStackTrace();
@@ -54,7 +56,7 @@ public class ParticipantEventsController {
     @GetMapping("/findall")
     public ResponseEntity findAll() {
         try {
-            List<ParticipantsEventsEntity> participants= partEvenService.findAll();
+            List<ParticipantsEventsEntity> participants= participantEventsService.findAll();
             return new ResponseEntity<>(participants.stream()
                     .map(ReturnParticipantEventsDTO::new)
                     .collect(Collectors.toList()), HttpStatus.OK);
@@ -67,7 +69,7 @@ public class ParticipantEventsController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<? extends Object> delete(@PathVariable Long id){
         try {
-            var participant = partEvenService.delete(id);
+            var participant = participantEventsService.delete(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e){
             e.printStackTrace();
