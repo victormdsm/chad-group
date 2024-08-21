@@ -14,6 +14,6 @@ public interface ParticipantsRepository extends JpaRepository<ParticipantsEntity
 
     List<ParticipantsEntity> findByEmail(String email);
 
-    @Query("SELECT p FROM ParticipantsEventsEntity pe JOIN pe.participant p WHERE pe.status = :status")
-    List<ParticipantsEntity> findParticipantsByStatus(@Param("status") Status status);
+//    @Query("SELECT p FROM ParticipantsEventsEntity pe JOIN pe.participant p WHERE pe.status = :status")
+//    List<ParticipantsEntity> findParticipantsByStatus(@Param("status") Status status);
 }

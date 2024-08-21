@@ -42,7 +42,7 @@ public class ParticipantEventsService {
         return lista;
     }
 
-    public long countConfirmedParticipantsByEvent(Long eventId) {
-        return participantEventsRepository.countByEventIdAndStatus(eventId, Status.CONFIRMED);
-    }
+//    public long countConfirmedParticipantsByEvent(Long eventId) {
+//        return participantEventsRepository.countByEventIdAndStatus(eventId, Status.CONFIRMED);
+//    }
 }
