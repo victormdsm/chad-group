@@ -5,6 +5,7 @@ import com.eventflow.project.dto.participantseventsdto.ParticipantEventRegistrat
 import com.eventflow.project.dto.participantseventsdto.ParticipantsEventsUpdateDTO;
 import com.eventflow.project.dto.participantseventsdto.ReturnParticipantEventsDTO;
 import com.eventflow.project.entities.ParticipantsEventsEntity;
+import com.eventflow.project.entities.Status;
 import com.eventflow.project.services.ParticipantEventsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,13 +79,8 @@ public class ParticipantEventsController {
     }
     @GetMapping("/count/confirmed/{eventId}")
     public ResponseEntity<Long> countConfirmedParticipants(@PathVariable Long eventId) {
-        try {
-            long count = participantEventsService.countConfirmedParticipantsByEvent(eventId);
-            return new ResponseEntity<>(count, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
+        long count = participantEventsService.countParticipantsByEventIdAndStatus(eventId, Status.CONFIRMED);
+        return ResponseEntity.ok(count);
     }
 
 }

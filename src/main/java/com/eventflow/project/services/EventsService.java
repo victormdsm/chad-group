@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,12 +62,12 @@ public class EventsService {
         return user;
     }
 
-    public List<EventsEntitiy> findEventsByDate(LocalDate date) {
-        return eventsRepository.findByDate(date);
+    public List<EventsEntitiy> findEventsByDate(LocalDateTime date) {
+        return eventsRepository.findByStartDateTime(date);
     }
 
-    public List<EventsEntitiy> findEventsBetweenDates(LocalDate startDate, LocalDate endDate) {
-        return eventsRepository.findByDateBetween(startDate, endDate);
+    public List<EventsEntitiy> findEventsBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+        return eventsRepository.findByStartDateTimeBetween(startDate, endDate);
     }
 
     public List<EventsEntitiy> findEventsByUserName(String userName) {

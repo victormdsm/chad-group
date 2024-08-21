@@ -86,7 +86,7 @@ public class EventsController {
         }
     }
     @GetMapping("/findbydate/{date}")
-    public ResponseEntity<List<ReturnEventDataDTO>> findByDate(@PathVariable LocalDate date) {
+    public ResponseEntity<List<ReturnEventDataDTO>> findByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
         try {
             List<EventsEntitiy> events = eventsService.findEventsByDate(date);
             return new ResponseEntity<>(events.stream()
@@ -99,8 +99,8 @@ public class EventsController {
     }
 
     @GetMapping("/findbetween")
-    public ResponseEntity<List<ReturnEventDataDTO>> findBetweenDates(@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate startDate,
-                                                                     @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate endDate) {
+    public ResponseEntity<List<ReturnEventDataDTO>> findBetweenDates(@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+                                                                     @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
         try {
             List<EventsEntitiy> events = eventsService.findEventsBetweenDates(startDate, endDate);
             return new ResponseEntity<>(events.stream()
