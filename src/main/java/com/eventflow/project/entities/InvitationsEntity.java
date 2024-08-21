@@ -28,7 +28,7 @@ public class InvitationsEntity {
     @Column(name = "invite_date_time", nullable = false)
     private LocalDateTime invitationDateTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "event_id",nullable = false)
     private EventsEntitiy event;
 
