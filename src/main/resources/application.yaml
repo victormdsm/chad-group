@@ -10,3 +10,8 @@ spring:
   jpa:
     properties:
       hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+
+  mail:
+    sendgrid:
+      api:
+        key: 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

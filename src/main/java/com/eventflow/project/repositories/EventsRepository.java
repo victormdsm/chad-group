@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface EventsRepository extends JpaRepository<EventsEntitiy, Long> {
 
-    List<EventsEntitiy> findByUserId(Long userId);
-
-    List<EventsEntitiy> findByDate(LocalDate date);
-
-    List<EventsEntitiy> findByDateBetween(LocalDate startDate, LocalDate endDate);
-
-    List<EventsEntitiy> findByUser_Username(String userName);
+//    List<EventsEntitiy> findByUserId(Long userId);
+//
+//    List<EventsEntitiy> findByDate(LocalDate date);
+//
+//    List<EventsEntitiy> findByDateBetween(LocalDate startDate, LocalDate endDate);
+//
+//    List<EventsEntitiy> findByUser_Username(String userName);
 }

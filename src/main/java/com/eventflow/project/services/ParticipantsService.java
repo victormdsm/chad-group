@@ -45,7 +45,7 @@ public class ParticipantsService {
         return participantsRepository.findByEmail(email);
     }
 
-    public List<ParticipantsEntity> findParticipantsByStatusConfirmed() {
-        return participantsRepository.findParticipantsByStatus(Status.CONFIRMED);
-    }
+//    public List<ParticipantsEntity> findParticipantsByStatusConfirmed() {
+//        return participantsRepository.findParticipantsByStatus(Status.CONFIRMED);
+//    }
 }

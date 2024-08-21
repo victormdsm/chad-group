@@ -6,7 +6,10 @@ import com.eventflow.project.dto.invitationsdto.ReturnInvitationDataDTO;
 import com.eventflow.project.dto.participantsdto.ReturnParticipantDataDTO;
 import com.eventflow.project.entities.InvitationsEntity;
 import com.eventflow.project.entities.ParticipantsEntity;
+import com.eventflow.project.services.EmailService;
+import com.eventflow.project.services.EventsService;
 import com.eventflow.project.services.InvitationsService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +28,24 @@ public class InvitationsController {
     @Autowired
     InvitationsService invitationsService;
 
-    @PostMapping("/create")
+    @Autowired
+    EmailService emailService;
+
+    @Autowired
+    EventsService eventsService;
+
+    @PostMapping("/sendemail")
     public ResponseEntity create(@RequestBody InvitationCreateDTO dto){
         try {
             var invite = InvitationCreatDTOtoInvitationEntity(dto);
             invitationsService.save(invite);
+            var event = eventsService.findById(dto.event().getId());
+            String email = invite.getEmail();
+            String eventTitle = event.getTitle();
+            String body = "Você foi convidado para o evento: " + eventTitle;
+
+            // Assumindo que você tenha um serviço de e-mail configurado
+            emailService.sendEmail(email, "Convite para Evento", body);
             return new ResponseEntity<>(new ReturnInvitationDataDTO(invite), HttpStatus.CREATED);
         } catch (Exception e){
             e.printStackTrace();

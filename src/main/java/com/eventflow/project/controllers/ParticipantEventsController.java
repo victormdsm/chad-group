@@ -76,15 +76,15 @@ public class ParticipantEventsController {
             return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping("/count/confirmed/{eventId}")
-    public ResponseEntity<Long> countConfirmedParticipants(@PathVariable Long eventId) {
-        try {
-            long count = participantEventsService.countConfirmedParticipantsByEvent(eventId);
-            return new ResponseEntity<>(count, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
-    }
+//    @GetMapping("/count/confirmed/{eventId}")
+//    public ResponseEntity<Long> countConfirmedParticipants(@PathVariable Long eventId) {
+//        try {
+//            long count = participantEventsService.countConfirmedParticipantsByEvent(eventId);
+//            return new ResponseEntity<>(count, HttpStatus.OK);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
 }

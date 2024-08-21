@@ -61,15 +61,15 @@ public class EventsService {
         return user;
     }
 
-    public List<EventsEntitiy> findEventsByDate(LocalDate date) {
-        return eventsRepository.findByDate(date);
-    }
-
-    public List<EventsEntitiy> findEventsBetweenDates(LocalDate startDate, LocalDate endDate) {
-        return eventsRepository.findByDateBetween(startDate, endDate);
-    }
-
-    public List<EventsEntitiy> findEventsByUserName(String userName) {
-        return eventsRepository.findByUser_Username(userName);
-    }
+//    public List<EventsEntitiy> findEventsByDate(LocalDate date) {
+//        return eventsRepository.findByDate(date);
+//    }
+//
+//    public List<EventsEntitiy> findEventsBetweenDates(LocalDate startDate, LocalDate endDate) {
+//        return eventsRepository.findByDateBetween(startDate, endDate);
+//    }
+//
+//    public List<EventsEntitiy> findEventsByUserName(String userName) {
+//        return eventsRepository.findByUser_Username(userName);
+//    }
 }
