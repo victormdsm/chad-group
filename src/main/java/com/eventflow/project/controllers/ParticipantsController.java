@@ -76,16 +76,4 @@ public class ParticipantsController {
         }
     }
 
-//    @GetMapping("/confirmed")
-//    public ResponseEntity<List<ReturnParticipantDataDTO>> findParticipantsByStatusConfirmed() {
-//        try {
-//            List<ParticipantsEntity> confirmedParticipants = participantService.findParticipantsByStatusConfirmed();
-//            return new ResponseEntity<>(confirmedParticipants.stream()
-//                    .map(ReturnParticipantDataDTO::new)
-//                    .collect(Collectors.toList()), HttpStatus.OK);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-//        }
-//    }
 }

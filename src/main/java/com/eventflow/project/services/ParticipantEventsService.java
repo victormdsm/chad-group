@@ -1,5 +1,6 @@
 package com.eventflow.project.services;
 
+import com.eventflow.project.entities.ParticipantsEntity;
 import com.eventflow.project.entities.ParticipantsEventsEntity;
 import com.eventflow.project.entities.Status;
 import com.eventflow.project.repositories.ParticipantEventsRepository;
@@ -42,7 +43,7 @@ public class ParticipantEventsService {
         return lista;
     }
 
-//    public long countConfirmedParticipantsByEvent(Long eventId) {
-//        return participantEventsRepository.countByEventIdAndStatus(eventId, Status.CONFIRMED);
-//    }
+    public long countParticipantsByEventIdAndStatus(Long eventId, Status status) {
+        return participantEventsRepository.countByEventIdAndStatus(eventId, status);
+    }
 }

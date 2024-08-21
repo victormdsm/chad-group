@@ -85,44 +85,43 @@ public class EventsController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/findbydate/{date}")
+    public ResponseEntity<List<ReturnEventDataDTO>> findByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
+        try {
+            List<EventsEntitiy> events = eventsService.findEventsByDate(date);
+            return new ResponseEntity<>(events.stream()
+                    .map(ReturnEventDataDTO::new)
+                    .collect(Collectors.toList()), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 
-//    @GetMapping("/findbydate/{date}")
-//    public ResponseEntity<List<ReturnEventDataDTO>> findByDate(@PathVariable LocalDate date) {
-//        try {
-//            List<EventsEntitiy> events = eventsService.findEventsByDate(date);
-//            return new ResponseEntity<>(events.stream()
-//                    .map(ReturnEventDataDTO::new)
-//                    .collect(Collectors.toList()), HttpStatus.OK);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-//        }
-//    }
-//
-//    @GetMapping("/findbetween")
-//    public ResponseEntity<List<ReturnEventDataDTO>> findBetweenDates(@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate startDate,
-//                                                                     @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate endDate) {
-//        try {
-//            List<EventsEntitiy> events = eventsService.findEventsBetweenDates(startDate, endDate);
-//            return new ResponseEntity<>(events.stream()
-//                    .map(ReturnEventDataDTO::new)
-//                    .collect(Collectors.toList()), HttpStatus.OK);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-//        }
-//    }
-//
-//    @GetMapping("/findbyusername")
-//    public ResponseEntity<List<ReturnEventDataDTO>> findByUserName(@RequestParam("username") String username) {
-//        try {
-//            List<EventsEntitiy> events = eventsService.findEventsByUserName(username);
-//            return new ResponseEntity<>(events.stream()
-//                    .map(ReturnEventDataDTO::new)
-//                    .collect(Collectors.toList()), HttpStatus.OK);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-//        }
-//    }
+    @GetMapping("/findbetween")
+    public ResponseEntity<List<ReturnEventDataDTO>> findBetweenDates(@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+                                                                     @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
+        try {
+            List<EventsEntitiy> events = eventsService.findEventsBetweenDates(startDate, endDate);
+            return new ResponseEntity<>(events.stream()
+                    .map(ReturnEventDataDTO::new)
+                    .collect(Collectors.toList()), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/findbyusername")
+    public ResponseEntity<List<ReturnEventDataDTO>> findByUserName(@RequestParam("username") String username) {
+        try {
+            List<EventsEntitiy> events = eventsService.findEventsByUserName(username);
+            return new ResponseEntity<>(events.stream()
+                    .map(ReturnEventDataDTO::new)
+                    .collect(Collectors.toList()), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 }
