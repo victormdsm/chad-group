@@ -1,7 +1,6 @@
 package com.eventflow.project.dto.participantseventsdto;
 
-import com.eventflow.project.entities.Status;
-import com.eventflow.project.entities.UserType;
+import com.eventflow.project.entities.enums.Status;
 import jakarta.validation.constraints.NotNull;
 
 public record ParticipantsEventsUpdateDTO(

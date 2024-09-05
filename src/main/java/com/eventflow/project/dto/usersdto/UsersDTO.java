@@ -1,6 +1,6 @@
 package com.eventflow.project.dto.usersdto;
 
-import com.eventflow.project.entities.UserType;
+import com.eventflow.project.entities.enums.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

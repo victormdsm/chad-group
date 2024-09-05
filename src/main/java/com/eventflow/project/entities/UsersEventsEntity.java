@@ -1,15 +1,12 @@
 package com.eventflow.project.entities;
 
-import com.eventflow.project.dto.eventsdto.EventDTO;
-import com.eventflow.project.dto.participantsdto.ParticipantDTO;
 import com.eventflow.project.dto.participantseventsdto.ParticipantsEventsUpdateDTO;
+import com.eventflow.project.entities.enums.Status;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.w3c.dom.events.Event;
 
 import java.time.LocalDateTime;
 
@@ -18,8 +15,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "participants_events_tb")
-public class ParticipantsEventsEntity {
+@Table(name = "users_events_tb")
+public class UsersEventsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,8 +28,8 @@ public class ParticipantsEventsEntity {
     private Status participantStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "participant_id",nullable = false)
-    private ParticipantsEntity participant;
+    @JoinColumn(name = "user_id",nullable = false)
+    private UsersEntity users;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id", nullable = false)

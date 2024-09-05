@@ -1,9 +1,8 @@
 package com.eventflow.project.services;
 
-import com.eventflow.project.entities.ParticipantsEntity;
-import com.eventflow.project.entities.ParticipantsEventsEntity;
-import com.eventflow.project.entities.Status;
-import com.eventflow.project.repositories.ParticipantEventsRepository;
+import com.eventflow.project.entities.UsersEventsEntity;
+import com.eventflow.project.entities.enums.Status;
+import com.eventflow.project.repositories.UsersEventsRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +13,13 @@ import java.util.List;
 public class ParticipantEventsService {
 
     @Autowired
-    private ParticipantEventsRepository participantEventsRepository;
+    private UsersEventsRepository participantEventsRepository;
 
-    public ParticipantsEventsEntity save(@Valid ParticipantsEventsEntity participantsEventsEntity){
+    public UsersEventsEntity save(@Valid UsersEventsEntity participantsEventsEntity){
         return this.participantEventsRepository.save(participantsEventsEntity);
     }
 
-    public ParticipantsEventsEntity update(@Valid ParticipantsEventsEntity participantsEventsEntity){
+    public UsersEventsEntity update(@Valid UsersEventsEntity participantsEventsEntity){
         return participantEventsRepository.save(participantsEventsEntity);
     }
 
@@ -32,18 +31,18 @@ public class ParticipantEventsService {
         return null;
     }
 
-    public ParticipantsEventsEntity findById(@Valid Long id){
-        ParticipantsEventsEntity participantsEventsEntity = this.participantEventsRepository.findById(id).get();
+    public UsersEventsEntity findById(@Valid Long id){
+        UsersEventsEntity participantsEventsEntity = this.participantEventsRepository.findById(id).get();
         return participantsEventsEntity;
 
     }
 
-    public List<ParticipantsEventsEntity> findAll(){
-        List<ParticipantsEventsEntity> lista = this.participantEventsRepository.findAll();
+    public List<UsersEventsEntity> findAll(){
+        List<UsersEventsEntity> lista = this.participantEventsRepository.findAll();
         return lista;
     }
 
-    public long countParticipantsByEventIdAndStatus(Long eventId, Status status) {
-        return participantEventsRepository.countByEventIdAndStatus(eventId, status);
-    }
+//    public long countParticipantsByEventIdAndStatus(Long eventId, Status status) {
+//        return participantEventsRepository.countByEventIdAndStatus(eventId, status);
+//    }
 }

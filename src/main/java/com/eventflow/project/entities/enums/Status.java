@@ -1,4 +1,4 @@
-package com.eventflow.project.entities;
+package com.eventflow.project.entities.enums;
 
 public enum Status {
     CONFIRMED,

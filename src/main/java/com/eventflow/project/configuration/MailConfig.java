@@ -1,4 +1,4 @@
-package com.eventflow.project.entities;
+package com.eventflow.project.configuration;
 
 import com.sendgrid.SendGrid;
 import org.springframework.beans.factory.annotation.Value;
